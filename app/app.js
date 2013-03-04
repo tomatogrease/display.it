@@ -1,4 +1,5 @@
 require('moduleA/main');
+require('data-controller/form-read');
 
 
 
