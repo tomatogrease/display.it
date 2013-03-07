@@ -1,4 +1,4 @@
-var formReader = (function(){
+module.exports = (function(){
 
     function readForm(formID){
         
@@ -28,8 +28,3 @@ var formReader = (function(){
     }
 
 })();
-
-$(document).ready(function(){
-    formReader.init($('#recipeForm'));
-});
-
