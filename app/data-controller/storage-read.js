@@ -1,1 +1,0 @@
-//localStorage[thisID + '.' + element[i].attr('id')] = element[i].val();

@@ -1,12 +1,8 @@
-var moduleA = require('moduleA/main');
-var formReader = require('data-controller/form-read');
+var recipeView = require('views/newRecipe');
 
 $(document).ready(function(){
-
-    console.log('DOM ready');
-
-    formReader.init($('#recipeForm'));
-
+	// initialize recipe form
+	recipeView.init('#recipeForm');
 
 });
 
