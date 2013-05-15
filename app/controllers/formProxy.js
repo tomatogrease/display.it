@@ -13,7 +13,7 @@ module.exports = (function(){
 	 */
 	function parseForm(target){
 		// find all inputs in the jQuery object, except submit buttons
-		var inputs = target.children('input').not('input[type="submit"]');
+		var inputs = target.children('input, textarea').not('input[type="submit"]');
 		var data = {};
 		// iterate through each input, and save id, values into data object;
 		for (var i = 0; i < inputs.length; i++){

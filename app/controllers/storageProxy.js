@@ -52,6 +52,33 @@ module.exports = (function() {
 		}
 	}
 	/**
+	 * find database data with a cursor, to retrieve multiple results.
+	 * @param  {String}   store_name
+	 * @param  {Function} callback
+	 */
+	function findData(store_name, callback) {
+
+		var request = open();
+		var recipes = [];
+
+		request.onsuccess = function(event) {
+			db = event.target.result;
+			// use a cursor to retrieve multiple results
+			// https://developer.mozilla.org/en-US/docs/IndexedDB/Using_IndexedDB#Using_an_index
+			var store = getObjectStore(store_name, "readwrite").openCursor().onsuccess = function(event) {
+				var cursor = event.target.result;
+
+				if (cursor) {
+					recipes.push(cursor.value);
+					cursor.continue();
+				} else {
+					// when cursor has gone through all results, invoke the callback.
+					callback(recipes);
+				}
+			}
+		}
+	}
+	/**
 	 * Generic readwrite dataStore transaction with onsuccess function call
 	 * @param  {String} store_name
 	 * @param  {String} value
@@ -62,7 +89,7 @@ module.exports = (function() {
 		request.onsuccess = function(event) {
 			db = event.target.result;
 			// onSuccess handler when successfully reading objectStore
-			var store= getObjectStore(store_name, "readwrite").add(value).onsuccess = function(event) {
+			var store = getObjectStore(store_name, "readwrite").add(value).onsuccess = function(event) {
 
 				console.log(value, event.target.result);
 			}
@@ -109,12 +136,14 @@ module.exports = (function() {
 	}
 
 	return {
-		init: function(model) {
+		init: function(model, callback) {
 			initialize(model);
 		},
 		read: function(storeName, key) {
-
 			readData.apply(this, [storeName, key]);
+		},
+		find: function(storeName, callback) {
+			findData.apply(this, [storeName, callback]);
 		},
 		save: function(storeName, value) {
 

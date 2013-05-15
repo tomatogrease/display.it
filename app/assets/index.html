@@ -1,17 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <title>display-it</title>
-    <link rel="stylesheet" href="stylesheets/app.css">
-    <script src="javascripts/vendor.js"></script>
-    <script src="javascripts/app.js"></script>
-    <script>require('app');</script>
+	<meta charset="utf-8">
+	<title>display.it</title>
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<script src="javascripts/vendor.js"></script>
+	<script src="javascripts/app.js"></script>
+	<script>
+		var browse = require('views/browse');
+		$(document).ready(function(){
+			// initialize recipe form
+			browse.init('#browse');
+		});
+
+	</script>
 </head>
 <body>
-    <div>
-        Display.it
-        <p>Tomato colored</p>
-    </div>
+	<!-- 
+		TODO: De-dupe base template for easier reuse across different templates.
+	-->
+	<div class="container">
+		<div class="row">
+			<div class="navbar navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container">
+						<a class="brand" href="#">display.it</a>
+						<ul class="nav pull-right">
+							<li><a href="/create.html">create</a></li>
+							<li class="active"><a href="/">browse</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span12">
+				<div id="browse">
+				</div>
+			</div>
+		</div>
 </body>
 </html>

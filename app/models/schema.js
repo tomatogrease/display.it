@@ -16,17 +16,7 @@ module.exports = (function() {
 					keypath: "id", 
 					autoIncrement: true, 
 					index: [
-						{ name: "name", keyPath: "name", unique: false },
-						{ name: "tags", keyPath: "tags", unique: true }
-					]
-				},
-				{
-					name:"user",
-					keypath: "id", 
-					autoIncrement: true, 
-					index: [
-						{ name: "name", keyPath: "name", unique: false },
-						{ name: "email", keyPath: "email", unique: true }
+						{ name: "title", keyPath: "title", unique: false }
 					]
 				}
 			]
