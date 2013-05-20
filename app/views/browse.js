@@ -17,15 +17,16 @@ module.exports = (function(){
 	function onFindComplete(data) {
 		console.log("All data within recipes", data);
 	}
+
 	return {
 		/**
 		 * initialize browse data page
 		 * @param  {String} formId 
 		 */
-		init : function(formId){
-			storage.init(schema);
+		init : function(wrapper){
 			// find all entries in recipes objectstore
 			storage.find("recipes", onFindComplete);
+
 		}
 	}
 
