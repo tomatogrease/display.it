@@ -1,10 +1,10 @@
 var schema  = require('models/schema');
 var storage = require('controllers/storageProxy');
-var recipeView = require('views/create');
-
+var router  = require('router');
 $(document).ready(function(){
 	// initialize database
 	storage.init(schema);
-	// initialize recipe form
-	recipeView.init('.content');
+
+	// init router, which will initialize the appropriate view based on the url.
+	router.init();
 });

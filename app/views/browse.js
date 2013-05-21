@@ -26,7 +26,7 @@ module.exports = (function(){
 		init : function(wrapper){
 			// find all entries in recipes objectstore
 			storage.find("recipes", onFindComplete);
-
+			$(wrapper).empty();
 		}
 	}
 
