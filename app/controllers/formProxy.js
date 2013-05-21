@@ -1,3 +1,4 @@
+var formTemplate = require('templates/form');
 /**
  * formProxy.js : Provides a generic set of utility functions for form events to avoid adding 
  * unnecessary logic in view code.
@@ -5,7 +6,7 @@
  */
 module.exports = (function(){
 	// formProxy variables
-	var form = null; // jquery Object representing form
+	var form; // jquery Object representing form
 	/**
 	 * Iterates through inputs in provided jquery object, to build object of key value pairs.
 	 * @param  {jQuery object} target
@@ -25,30 +26,41 @@ module.exports = (function(){
 		return data;
 	}
 	/**
-	 * Add a click listener to the submit button, and call provided
-	 * callback when submit button clicked
-	 * @param {String}   formId
-	 * @param {Function} callback
+	 * Create form from handlebars template. Empty wrapper 
+	 * and append template populated with model
+	 * @param  {String}   wrapper  id or class of wrapper dom element
+	 * @param  {Object}   model    Object representation of form data
+	 * @param  {Function} callback view provided function to call when submit clicked
 	 */
-	function addSubmitListener(formId, callback) {
-		var form = getForm(formId);
+	function createForm(wrapper, model, callback) {
+		// populate form with model data;
+		form = $(formTemplate(model));
 
-		form.children('input[type="submit"]').on("click", function(event) {
-			event.preventDefault();
-			// parse form values from the target form
-			var data = parseForm(form);
-			// pass data to callback specified from view
-			callback(data);
-		});
+		// remove wrapper contents and append form
+		$(wrapper).empty().append(form);
+
+		// attach form listener
+		registerSubmitListener(form, callback);
 	}
 	/**
-	 * Use passed String to get jquery object
-	 * @param  {String} formId
-	 * @return {Object} jQuery object
+	 * Add a click listener to the submit button, and call provided
+	 * callback when submit button clicked
+	 * @param {String}   form
+	 * @param {Function} callback
 	 */
-	function getForm(formId) {
-		form = form || $(formId);
-		return form;
+	function registerSubmitListener(form, callback) {
+		try {
+			// search form for submit.
+			form.children('input[type="submit"]').on("click", function(event) {
+				event.preventDefault();
+				// parse form values from the target form
+				var data = parseForm(form);
+				// pass data to callback specified from view
+				callback(data);
+			});
+		} catch(e) {
+			console.log("Error: Submit button not found.");
+		}
 	}
 
 	return {
@@ -57,8 +69,8 @@ module.exports = (function(){
 		 * @param  {String} formId
 		 * @param  {Function} submitCallback
 		 */
-		init : function(formId, submitCallback){
-			addSubmitListener(formId, submitCallback);
+		init : function(wrapper, model, submitCallback){
+			createForm(wrapper, model, submitCallback);
 		}
 	}
 

@@ -7,12 +7,7 @@
 	<script src="javascripts/vendor.js"></script>
 	<script src="javascripts/app.js"></script>
 	<script>
-		var browse = require('views/browse');
-		$(document).ready(function(){
-			// initialize recipe form
-			browse.init('#browse');
-		});
-
+		require('app');
 	</script>
 </head>
 <body>
@@ -26,8 +21,8 @@
 					<div class="container">
 						<a class="brand" href="#">display.it</a>
 						<ul class="nav pull-right">
-							<li><a href="/create.html">create</a></li>
-							<li class="active"><a href="/">browse</a></li>
+							<li><a id="browse" href="/#!/">browse</a></li>
+							<li><a id="create" href="/#!/create">create</a></li>
 						</ul>
 					</div>
 				</div>
@@ -35,8 +30,7 @@
 		</div>
 		<div class="row">
 			<div class="span12">
-				<div id="browse">
-				</div>
+				<div class="content row"></div>
 			</div>
 		</div>
 </body>

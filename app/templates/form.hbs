@@ -1,0 +1,17 @@
+<form id="{{id}}">
+	{{! iterate through each form element in model}}
+	{{#each elements}}
+		<label for="{{this.key}}">{{this.name}}</label>
+		
+		{{#if isInput}}
+			<input type="text" id="{{this.key}}" name="{{this.key}}" placeholder="{{this.value}}">
+		{{/if}}
+		
+		{{#if isTextArea}}
+			<textarea rows="3" id="{{this.key}}"  name="{{this.key}}" placeholder="{{this.value}}"></textarea>
+		{{/if}}
+		<br />
+	{{/each}}
+
+	<input type="submit" value="{{submit}}">
+</form>

@@ -83,15 +83,15 @@ module.exports = (function() {
 	 * @param  {String} store_name
 	 * @param  {String} value
 	 */
-	function saveData(store_name, value) {
+	function saveData(store_name, data) {
 		var request = open();
 
 		request.onsuccess = function(event) {
 			db = event.target.result;
 			// onSuccess handler when successfully reading objectStore
-			var store = getObjectStore(store_name, "readwrite").add(value).onsuccess = function(event) {
+			var store = getObjectStore(store_name, "readwrite").add(data).onsuccess = function(event) {
 
-				console.log(value, event.target.result);
+				console.log(data, event.target.result);
 			}
 		}
 			
