@@ -1,5 +1,3 @@
-
-var schema  = require('models/schema');
 var storage = require('controllers/storageProxy');
 var recipe  = require('templates/recipe');
 
