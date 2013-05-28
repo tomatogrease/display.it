@@ -28,39 +28,42 @@ module.exports = (function(){
 	/**
 	 * Create form from handlebars template. Empty wrapper 
 	 * and append template populated with model
+	 * @param  {Function} template Handlebars function
 	 * @param  {String}   wrapper  id or class of wrapper dom element
 	 * @param  {Object}   model    Object representation of form data
-	 * @param  {Function} callback view provided function to call when submit clicked
 	 */
-	function createForm(wrapper, model, callback) {
+	function createForm(template, wrapper, model) {
 		// populate form with model data;
-		form = $(formTemplate(model));
+		form = $(template(model));
 
 		// remove wrapper contents and append form
 		$(wrapper).empty().append(form);
 
-		// attach form listener
-		registerSubmitListener(form, callback);
+		return form;
 	}
 	/**
 	 * Add a click listener to the submit button, and call provided
 	 * callback when submit button clicked
 	 * @param {String}   form
 	 * @param {Function} callback
+	 * @return {Boolean} Successfully added listener to submit
 	 */
 	function registerSubmitListener(form, callback) {
-		try {
-			// search form for submit.
-			form.children('input[type="submit"]').on("click", function(event) {
-				event.preventDefault();
-				// parse form values from the target form
-				var data = parseForm(form);
-				// pass data to callback specified from view
-				callback(data);
-			});
-		} catch(e) {
-			console.log("Error: Submit button not found.");
+		if (form) {
+			var submitButton = form.children('input[type="submit"]');
+			if (submitButton.length > 0) {
+				// search form for submit.
+				submitButton.on("click", function(event) {
+					event.preventDefault();
+					// parse form values from the target form
+					var data = parseForm(form);
+					// pass data to callback specified from view
+					callback(data);
+				});
+				return true;
+			}
 		}
+		return false;
 	}
 
 	return {
@@ -68,9 +71,12 @@ module.exports = (function(){
 		 * Bootstrap function that gets callled to initialize form actions
 		 * @param  {String} formId
 		 * @param  {Function} submitCallback
+		 * @return {Boolean} Submitlistener was registered
 		 */
 		init : function(wrapper, model, submitCallback){
-			createForm(wrapper, model, submitCallback);
+			var form = createForm(formTemplate, wrapper, model);
+			// attach form listener
+			return registerSubmitListener(form, submitCallback);
 		}
 	}
 
