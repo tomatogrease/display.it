@@ -1,12 +1,12 @@
 {
-	"author": "Your Name",
-	"name": "package-name",
-	"description": "Package description",
-	"version": "0.0.1",
-	"homepage": "",
+	"author": "Roz De La Cruz",
+	"name": "display.it",
+	"description": "display.it is an application to cleanly display and organize notes. The idea for the project arose when the 20+ favorite recipes I kept as sticky notes  on my refridgerator door started falling off.",
+	"version": "0.9.0",
+	"homepage": "https://github.com/tomatogrease/display.it",
 	"repository": {
 		"type": "git",
-		"url": ""
+		"url": "https://github.com/tomatogrease/display.it"
 	},
 	"engines": {
 	"node": "~0.6.10 || 0.8 || 0.9"
